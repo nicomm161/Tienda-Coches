@@ -1,0 +1,75 @@
+.listaCoches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9; /* Fondo suave para el contenedor */
+  }
+  
+  .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+    text-align: center;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* Efecto de levantar la tarjeta */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa al hacer hover */
+  }
+  
+  .card img {
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+  }
+  
+  .card h3 {
+    font-size: 1.5em;
+    margin: 15px 0 10px;
+    color: #333;
+    font-weight: 600; /* Texto más grueso */
+  }
+  
+  .card p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 0.9em;
+  }
+  
+  .card button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Transición suave para el botón */
+  }
+  
+  .card button:hover {
+    background-color: #0056b3; /* Color más oscuro al hacer hover */
+  }
+  
+  .more {
+    text-align: left;
+    padding: 15px;
+    background-color: #f9f9f9; /* Fondo suave para la sección de detalles */
+    border-top: 1px solid #ddd;
+  }
+  
+  .more p {
+    margin: 10px 0;
+    color: #555;
+    font-size: 0.9em;
+  }

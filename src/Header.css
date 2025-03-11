@@ -1,0 +1,72 @@
+header {
+    background-color: #f8f9fa; /* Fondo claro */
+    padding: 10px 20px; /* Espaciado interno */
+    border-bottom: 1px solid #e0e0e0; /* Borde inferior sutil */
+    position: fixed; /* Fija el header en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Ancho máximo para el contenido */
+    margin: 0 auto; /* Centrar el contenido */
+  }
+  
+  ol {
+    list-style: none; /* Elimina los números o viñetas */
+    display: flex;
+    gap: 20px; /* Espacio entre elementos */
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    display: inline;
+  }
+  
+  a {
+    text-decoration: none; /* Elimina el subrayado */
+    color: #007bff; /* Color azul para los enlaces */
+    font-size: 16px;
+    font-weight: 500; /* Grosor de la fuente */
+    transition: color 0.3s ease, text-decoration 0.3s ease; /* Transición suave */
+  }
+  
+  a:hover {
+    color: #0056b3; /* Color azul más oscuro al pasar el ratón */
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+  }
+  
+  /* Estilos adicionales para mejorar la apariencia */
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Color oscuro para el logo */
+  }
+  
+  .logo:hover {
+    color: #007bff; /* Color azul al pasar el ratón */
+  }
+  
+  /* Estilos para dispositivos móviles (responsive) */
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column; /* Cambia a columna en móviles */
+      align-items: flex-start;
+    }
+  
+    ol {
+      flex-direction: column; /* Cambia a columna en móviles */
+      gap: 10px; /* Reduce el espacio entre elementos */
+    }
+  
+    .logo {
+      margin-bottom: 10px; /* Espacio debajo del logo en móviles */
+    }
+  }
