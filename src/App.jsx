@@ -13,6 +13,7 @@ function App() {
     <CocheProvider>
       <Router>
         <Header />
+        {/* Agregamos rutas para nuestra web */}
         <Routes>
           <Route path="/" element={<Catalog />} />
           <Route path="/catalog" element={<Catalog />} />

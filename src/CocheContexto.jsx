@@ -1,8 +1,10 @@
 import React, { createContext, useState } from 'react';
 
+//Creamos el contexto
 const CocheContext = createContext();
 
 const CocheProvider = ({ children }) => {
+  //Utilizamos el useState para poder manejar el JSON entero
   const [coches, setCoches] = useState([
     {
       "id": 1,
@@ -166,13 +168,17 @@ const CocheProvider = ({ children }) => {
     }
   ]);
 
+  //Función para agregar coches nuevos a la lista previa
   const agregarCoche = (nuevoCoche) => {
     setCoches([...coches, { ...nuevoCoche, id: coches.length + 1, reservado: false }]);
   };
+
+  //Función eliminar coches con filter y por id
   const eliminarCoche = (id) => {
     setCoches(coches.filter((coche) => coche.id !== id));
   };
 
+  //Función para editar los coches existentes en la lista previa
   const editarCoche = (cocheEditado) => {
     setCoches(
       coches.map((coche) =>
@@ -180,6 +186,7 @@ const CocheProvider = ({ children }) => {
       )
     );
   };
+  //Colocamos el contexto para que puedan heredarlo los hijos para que puedan manipular las funciones, coches, etc
   return (
     <CocheContext.Provider value={{ coches, eliminarCoche, editarCoche, agregarCoche }}>
       {children}

@@ -1,27 +1,27 @@
 header {
-    background-color: #f8f9fa; /* Fondo claro */
-    padding: 10px 20px; /* Espaciado interno */
-    border-bottom: 1px solid #e0e0e0; /* Borde inferior sutil */
-    position: fixed; /* Fija el header en la parte superior */
+    background-color: #f8f9fa; 
+    padding: 10px 20px; 
+    border-bottom: 1px solid #e0e0e0; 
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    z-index: 1000; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   }
   
   nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px; /* Ancho máximo para el contenido */
-    margin: 0 auto; /* Centrar el contenido */
+    max-width: 1200px; 
+    margin: 0 auto; 
   }
   
   ol {
-    list-style: none; /* Elimina los números o viñetas */
+    list-style: none; 
     display: flex;
-    gap: 20px; /* Espacio entre elementos */
+    gap: 20px; 
     padding: 0;
     margin: 0;
   }
@@ -31,42 +31,42 @@ header {
   }
   
   a {
-    text-decoration: none; /* Elimina el subrayado */
-    color: #007bff; /* Color azul para los enlaces */
+    text-decoration: none; 
+    color: #007bff; 
     font-size: 16px;
-    font-weight: 500; /* Grosor de la fuente */
-    transition: color 0.3s ease, text-decoration 0.3s ease; /* Transición suave */
+    font-weight: 500; 
+    transition: color 0.3s ease, text-decoration 0.3s ease; 
   }
   
   a:hover {
-    color: #0056b3; /* Color azul más oscuro al pasar el ratón */
-    text-decoration: underline; /* Subrayado al pasar el ratón */
+    color: #0056b3; 
+    text-decoration: underline; 
   }
   
-  /* Estilos adicionales para mejorar la apariencia */
+  
   .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #333; /* Color oscuro para el logo */
+    color: #333; 
   }
   
   .logo:hover {
-    color: #007bff; /* Color azul al pasar el ratón */
+    color: #007bff; 
   }
   
-  /* Estilos para dispositivos móviles (responsive) */
+
   @media (max-width: 768px) {
     nav {
-      flex-direction: column; /* Cambia a columna en móviles */
+      flex-direction: column; 
       align-items: flex-start;
     }
   
     ol {
-      flex-direction: column; /* Cambia a columna en móviles */
-      gap: 10px; /* Reduce el espacio entre elementos */
+      flex-direction: column; 
+      gap: 10px; 
     }
   
     .logo {
-      margin-bottom: 10px; /* Espacio debajo del logo en móviles */
+      margin-bottom: 10px; 
     }
   }

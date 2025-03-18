@@ -7,6 +7,7 @@ export const Header = () => {
     <header>
       <nav>
         <ol>
+          {/* Agregamos los link para que funcionen y conecten con los routes */}
           <li><Link to="/">Inicio</Link></li>
           <li><Link to="/catalog">Lista de productos</Link></li>
           <li><Link to="/formulario">Agregar</Link></li>

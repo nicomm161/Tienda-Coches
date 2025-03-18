@@ -3,7 +3,10 @@ import { CocheContext } from './CocheContexto';
 import './Formulario.css';
 
 const Formulario = () => {
+  // Agregamos el contexto al form
   const { agregarCoche } = useContext(CocheContext);
+
+  //Utilizamos el useState para manejar los datos de nuestro formularip
   const [formData, setFormData] = useState({
     marca: '',
     modelo: '',
@@ -20,8 +23,11 @@ const Formulario = () => {
     reservado: false
   });
 
+  // Creamos un evento para cambiar los valores
   const handleChange = (e) => {
+    //Eventos manejados con target
     const { name, value, type, checked } = e.target;
+    //Si la casilla reservado es marcada actualiza el valor correspondiente en formData (campo reservado)
     if (type === 'checkbox') {
       if (name === 'reservado') {
         setFormData({
@@ -29,7 +35,9 @@ const Formulario = () => {
           [name]: checked
         });
       } else {
+        //Variable auxiliar para marcar el tipo de combustible
         const tiposCombustible = formData.tipo_combustible;
+        //Si marcan los tipos de combustible agrega el valor al formData y si no los elimina (marca vacío)
         if (checked) {
           tiposCombustible.push(value);
         } else {
@@ -38,6 +46,7 @@ const Formulario = () => {
             tiposCombustible.splice(index, 1);
           }
         }
+        //Llamamos al setter para actualizar el tipo de combustible de formData
         setFormData({
           ...formData,
           tipo_combustible: tiposCombustible
@@ -51,27 +60,33 @@ const Formulario = () => {
     }
   };
 
+  //Creamos un evento para cambiar las imagenes y actualizamos su estado
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imagePath = `public/images/${file.name}`;
+    const archivo = e.target.files[0];
+    if (archivo) {
+      const imagenCoche = `public/images/${archivo.name}`;
       setFormData({
         ...formData,
-        imagen: imagePath
+        imagen: imagenCoche
       });
     }
   };
+
+  //Creamos un evento para enviar los datos a la funcion agregar coche de nuestro contexto
 
   const handleSubmit = (e) => {
     e.preventDefault();
     agregarCoche({
       ...formData,
+      //Paso los valores a integer o float
       año: parseInt(formData.año),
       precio: parseFloat(formData.precio),
       kilometraje: parseInt(formData.kilometraje),
+      //Divide la cadena recortando cada elemento del parámetro
       caracteristicas: formData.caracteristicas.split(',').map((item) => item.trim()),
       reservado: formData.reservado
     });
+    //Setteo el formData para seguir agregando nuevos coches una vez de envíe
     setFormData({
       marca: '',
       modelo: '',
@@ -92,9 +107,11 @@ const Formulario = () => {
   return (
     <div className="formulario-container">
       <h1>Agregar Nuevo Coche</h1>
+      {/* Agrego la acción onSubmit con mi evento creado previamente */}
       <form onSubmit={handleSubmit} className="formulario">
         <div className="form-group">
           <label>Marca:</label>
+          {/* Agrego a cada uno de los input el evento handleChange creado previamente */}
           <input type="text" name="marca" value={formData.marca} onChange={handleChange} required />
         </div>
         <div className="form-group">
@@ -108,7 +125,6 @@ const Formulario = () => {
         <div className="form-group">
           <label>Color:</label>
           <select name="color" value={formData.color} onChange={handleChange} required>
-            <option value="">Seleccione...</option>
             <option value="Rojo">Rojo</option>
             <option value="Azul">Azul</option>
             <option value="Negro">Negro</option>
@@ -131,7 +147,6 @@ const Formulario = () => {
         <div className="form-group">
           <label>Transmisión:</label>
           <select name="transmision" value={formData.transmision} onChange={handleChange} required>
-            <option value="">Seleccione...</option>
             <option value="Manual">Manual</option>
             <option value="Automático">Automático</option>
           </select>
@@ -169,7 +184,7 @@ const Formulario = () => {
           </div>
         </div>
         <div className="form-group">
-          <label>Características (separadas por comas):</label>
+          <label>Características:</label>
           <input type="text" name="caracteristicas" value={formData.caracteristicas} onChange={handleChange} required />
         </div>
         <div className="form-group">

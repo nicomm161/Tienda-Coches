@@ -8,9 +8,12 @@ export const ItemCard = ({ coche }) => {
   const [editando, setEditando] = useState(false);
   const [formData, setFormData] = useState({ ...coche });
 
+  //Función booleana para cuando den al botón mostrar más cambie el estado
   const mostrarMas = () => {
     setMas(!mas);
   };
+
+  //Actualiza el estado cuando el usuario edita los datos del coche
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,12 +23,15 @@ export const ItemCard = ({ coche }) => {
     });
   };
 
+  //Envía los datos a la función editar coche y los cambia
+
   const handleSubmit = (e) => {
     e.preventDefault();
     editarCoche(formData);
     setEditando(false);
   };
 
+  //Cambia el estado del coche y modifica su estado de reserva a true
   const toggleReservado = () => {
     const cocheActualizado = { ...formData, reservado: !formData.reservado };
     editarCoche(cocheActualizado);
@@ -35,6 +41,7 @@ export const ItemCard = ({ coche }) => {
   return (
     <div className="card">
       {editando ? (
+        // Formulario para actualizar el coche
         <form onSubmit={handleSubmit}>
           <input type="text" name="marca" value={formData.marca} onChange={handleChange} />
           <input type="text" name="modelo" value={formData.modelo} onChange={handleChange} />
@@ -51,6 +58,7 @@ export const ItemCard = ({ coche }) => {
         </form>
       ) : (
         <>
+        {/* Carta que aparece en los coches */}
           <img src={coche.imagen} alt={coche.marca} />
           <h3>{coche.marca} {coche.modelo} ({coche.año})</h3>
           <p>Color: {coche.color}</p>
