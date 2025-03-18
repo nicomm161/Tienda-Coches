@@ -1,21 +1,22 @@
 import React from 'react';
 
+//Página sobre nosotros
 const SobreNosotros = () => {
   return (
-    <div>
+    <div className="container">
       <h1>Sobre Nosotros</h1>
       <p>
-        Bienvenidos a <strong>Nico Mesa Classics</strong>, tu destino para coches clásicos de época. Somos una empresa especializada en la venta de vehículos clásicos, donde la pasión por el automóvil y la historia se combinan para ofrecerte las mejores piezas de automoción.
+        ¡Bienvenidos a Nico Mesa Classics! Somos una empresa apasionada por los coches clásicos, y estamos aquí para ayudarte a encontrar el vehículo de tus sueños.
       </p>
+      <h2>Nuestra historia</h2>
       <p>
-        La empresa está dirigida por <strong>Nico Mesa</strong>, un apasionado de los coches clásicos con años de experiencia en el sector. En <strong>Nico Mesa Classics</strong>, no solo encontrarás una amplia selección de vehículos únicos, sino que también podrás gestionar tu propio inventario de coches. Puedes añadir nuevos vehículos, editar sus especificaciones o eliminarlos de nuestro catálogo según tus necesidades.
+        La empresa está dirigida por Nico Mesa, un chico apasionado de los coches clásicos con años de experiencia en el sector. En Nico Mesa Classics, no solo encontrarás una amplia selección de vehículos únicos, sino que también podrás gestionar tu propio inventario de coches.
       </p>
+      <h2>Nuestro objetivo</h2>
       <p>
-        Nuestro objetivo es ofrecer una experiencia personalizada para nuestros clientes, garantizando que cada coche que pase por nuestras manos sea una joya única y bien cuidada. Ya seas un coleccionista o un entusiasta de los coches clásicos, estamos aquí para ayudarte a encontrar el vehículo de tus sueños.
+        Nuestro objetivo es ofrecer una experiencia personalizada para nuestros clientes, garantizando que cada coche que pase por nuestras manos sea una joya única y bien cuidada.
       </p>
-      <p>
-        Explora nuestro catálogo, gestiona tus coches y descubre la magia de los automóviles clásicos con <strong>Nico Mesa Classics</strong>.
-      </p>
+      <button className="cta">Explora nuestro catálogo</button>
     </div>
   );
 };
