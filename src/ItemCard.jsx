@@ -36,6 +36,7 @@ export const ItemCard = ({ coche }) => {
     const cocheActualizado = { ...formData, reservado: !formData.reservado };
     editarCoche(cocheActualizado);
     setFormData(cocheActualizado);
+
   };
 
   return (
@@ -78,8 +79,8 @@ export const ItemCard = ({ coche }) => {
               <p>Combustible: {coche.tipo_combustible}</p>
               <p>Características: {coche.caracteristicas.join(', ')}</p>
               <p>Descripción: {coche.descripcion}</p>
-              <button onClick={() => setEditando(true)}>Editar</button>
-              <button onClick={() => eliminarCoche(coche.id)}>Eliminar</button>
+              {!coche.reservado && <button onClick={() => setEditando(true)}>Editar</button>}
+              {!coche.reservado && <button onClick={() => eliminarCoche(coche.id)}>Eliminar</button>}
             </div>
           )}
         </>
