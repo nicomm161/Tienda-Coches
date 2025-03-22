@@ -1,204 +1,161 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useForm } from "react-hook-form";
 import { CocheContext } from './CocheContexto';
 import './Formulario.css';
 
+// Componente para agregar un nuevo coche
 const Formulario = () => {
-  // Agregamos el contexto al form
+  // Obtenemos la función del contexto para agregar coches
   const { agregarCoche } = useContext(CocheContext);
 
-  //Utilizamos el useState para manejar los datos de nuestro formularip
-  const [formData, setFormData] = useState({
-    marca: '',
-    modelo: '',
-    año: '',
-    color: '',
-    precio: '',
-    kilometraje: '',
-    motor: '',
-    transmision: '',
-    tipo_combustible: [],
-    caracteristicas: '',
-    descripcion: '',
-    imagen: '',
-    reservado: false
-  });
+  // Hook para manejar el formulario y sus validaciones
+  const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm();
 
-  // Creamos un evento para cambiar los valores
-  const handleChange = (e) => {
-    //Eventos manejados con target
-    const { name, value, type, checked } = e.target;
-    //Si la casilla reservado es marcada actualiza el valor correspondiente en formData (campo reservado)
-    if (type === 'checkbox') {
-      if (name === 'reservado') {
-        setFormData({
-          ...formData,
-          [name]: checked
-        });
-      } else {
-        //Variable auxiliar para marcar el tipo de combustible
-        const tiposCombustible = formData.tipo_combustible;
-        //Si marcan los tipos de combustible agrega el valor al formData y si no los elimina (marca vacío)
-        if (checked) {
-          tiposCombustible.push(value);
-        } else {
-          const index = tiposCombustible.indexOf(value);
-          if (index > -1) {
-            tiposCombustible.splice(index, 1);
-          }
-        }
-        //Llamamos al setter para actualizar el tipo de combustible de formData
-        setFormData({
-          ...formData,
-          tipo_combustible: tiposCombustible
-        });
-      }
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    }
-  };
+  // Estado para manejar la imagen seleccionada
+  const [imagen, setImagen] = useState("");
 
-  //Creamos un evento para cambiar las imagenes y actualizamos su estado
+  // Función para manejar el cambio de imagen
   const handleImageChange = (e) => {
-    const archivo = e.target.files[0];
+    const archivo = e.target.files[0]; // Obtenemos el archivo seleccionado
     if (archivo) {
-      const imagenCoche = `public/images/${archivo.name}`;
-      setFormData({
-        ...formData,
-        imagen: imagenCoche
-      });
+      const imagenCoche = `public/images/${archivo.name}`; // Ruta de la imagen
+      setImagen(imagenCoche); // Guardamos la ruta en el estado
+      setValue("imagen", imagenCoche); // Actualizamos el valor del formulario
     }
   };
 
-  //Creamos un evento para enviar los datos a la funcion agregar coche de nuestro contexto
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // Función que se ejecuta al enviar el formulario
+  const onSubmit = (data) => {
+    // Agregamos el coche con los datos del formulario
     agregarCoche({
-      ...formData,
-      //Paso los valores a integer o float
-      año: parseInt(formData.año),
-      precio: parseFloat(formData.precio),
-      kilometraje: parseInt(formData.kilometraje),
-      //Divide la cadena recortando cada elemento del parámetro
-      caracteristicas: formData.caracteristicas.split(',').map((item) => item.trim()),
-      reservado: formData.reservado
+      ...data,
+      año: parseInt(data.año), // Convertimos el año a número
+      precio: parseFloat(data.precio), // Convertimos el precio a número decimal
+      kilometraje: parseInt(data.kilometraje), // Convertimos el kilometraje a número
+      caracteristicas: data.caracteristicas.split(',').map((item) => item.trim()), // Convertimos las características en un array
+      reservado: data.reservado || false, // Por defecto, el coche no está reservado
+      imagen // Agregamos la imagen seleccionada
     });
-    //Setteo el formData para seguir agregando nuevos coches una vez de envíe
-    setFormData({
-      marca: '',
-      modelo: '',
-      año: '',
-      color: '',
-      precio: '',
-      kilometraje: '',
-      motor: '',
-      transmision: '',
-      tipo_combustible: [],
-      caracteristicas: '',
-      descripcion: '',
-      imagen: '',
-      reservado: false
-    });
+
+    reset(); // Reiniciamos el formulario
+    setImagen(""); // Limpiamos la imagen seleccionada
   };
 
   return (
     <div className="formulario-container">
       <h1>Agregar Nuevo Coche</h1>
-      {/* Agrego la acción onSubmit con mi evento creado previamente */}
-      <form onSubmit={handleSubmit} className="formulario">
+      <form onSubmit={handleSubmit(onSubmit)} className="formulario">
+        
+        {/* Campo para la marca */}
         <div className="form-group">
           <label>Marca:</label>
-          {/* Agrego a cada uno de los input el evento handleChange creado previamente */}
-          <input type="text" name="marca" value={formData.marca} onChange={handleChange} required />
+          <input type="text" {...register("marca", { required: "La marca es obligatoria" })} />
+          {errors.marca && <p className="error">{errors.marca.message}</p>}
         </div>
+
+        {/* Campo para el modelo */}
         <div className="form-group">
           <label>Modelo:</label>
-          <input type="text" name="modelo" value={formData.modelo} onChange={handleChange} required />
+          <input type="text" {...register("modelo", { required: "El modelo es obligatorio" })} />
+          {errors.modelo && <p className="error">{errors.modelo.message}</p>}
         </div>
+
+        {/* Campo para el año */}
         <div className="form-group">
           <label>Año:</label>
-          <input type="number" name="año" value={formData.año} onChange={handleChange} required />
+          <input type="number" {...register("año", { required: "El año es obligatorio" })} />
+          {errors.año && <p className="error">{errors.año.message}</p>}
         </div>
+
+        {/* Campo para el color */}
         <div className="form-group">
           <label>Color:</label>
-          <select name="color" value={formData.color} onChange={handleChange} required>
+          <select {...register("color", { required: "Selecciona un color" })}>
+            <option value="">Selecciona...</option>
             <option value="Rojo">Rojo</option>
             <option value="Azul">Azul</option>
             <option value="Negro">Negro</option>
             <option value="Blanco">Blanco</option>
             <option value="Gris">Gris</option>
           </select>
+          {errors.color && <p className="error">{errors.color.message}</p>}
         </div>
+
+        {/* Campo para el precio */}
         <div className="form-group">
           <label>Precio:</label>
-          <input type="number" name="precio" value={formData.precio} onChange={handleChange} required />
+          <input type="number" {...register("precio", { required: "El precio es obligatorio" })} />
+          {errors.precio && <p className="error">{errors.precio.message}</p>}
         </div>
+
+        {/* Campo para el kilometraje */}
         <div className="form-group">
           <label>Kilometraje:</label>
-          <input type="number" name="kilometraje" value={formData.kilometraje} onChange={handleChange} required />
+          <input type="number" {...register("kilometraje", { required: "El kilometraje es obligatorio" })} />
+          {errors.kilometraje && <p className="error">{errors.kilometraje.message}</p>}
         </div>
+
+        {/* Campo para el motor */}
         <div className="form-group">
           <label>Motor:</label>
-          <input type="text" name="motor" value={formData.motor} onChange={handleChange} required />
+          <input type="text" {...register("motor", { required: "El motor es obligatorio" })} />
+          {errors.motor && <p className="error">{errors.motor.message}</p>}
         </div>
+
+        {/* Campo para la transmisión */}
         <div className="form-group">
           <label>Transmisión:</label>
-          <select name="transmision" value={formData.transmision} onChange={handleChange} required>
+          <select {...register("transmision", { required: "Selecciona la transmisión" })}>
+            <option value="">Selecciona...</option>
             <option value="Manual">Manual</option>
             <option value="Automático">Automático</option>
           </select>
+          {errors.transmision && <p className="error">{errors.transmision.message}</p>}
         </div>
+
+        {/* Campo para el tipo de combustible */}
         <div className="form-group">
           <label>Tipo de Combustible:</label>
           <div className="checkbox-group">
-            <label>
-              <input
-                type="checkbox"
-                name="tipo_combustible"
-                value="Gasolina"
-                checked={formData.tipo_combustible.includes('Gasolina')}
-                onChange={handleChange}
-              /> Gasolina
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="tipo_combustible"
-                value="Eléctrico"
-                checked={formData.tipo_combustible.includes('Eléctrico')}
-                onChange={handleChange}
-              /> Eléctrico
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="tipo_combustible"
-                value="Diésel"
-                checked={formData.tipo_combustible.includes('Diésel')}
-                onChange={handleChange}
-              /> Diésel
-            </label>
+            {["Gasolina", "Eléctrico", "Diésel"].map((tipo) => (
+              <label key={tipo}>
+                <input
+                  type="checkbox"
+                  value={tipo}
+                  {...register("tipo_combustible")}
+                /> {tipo}
+              </label>
+            ))}
           </div>
         </div>
+
+        {/* Campo para las características */}
         <div className="form-group">
-          <label>Características:</label>
-          <input type="text" name="caracteristicas" value={formData.caracteristicas} onChange={handleChange} required />
+          <label>Características (separadas por comas):</label>
+          <input type="text" {...register("caracteristicas", { required: "Las características son obligatorias" })} />
+          {errors.caracteristicas && <p className="error">{errors.caracteristicas.message}</p>}
         </div>
+
+        {/* Campo para la descripción */}
         <div className="form-group">
           <label>Descripción:</label>
-          <textarea name="descripcion" value={formData.descripcion} onChange={handleChange} required></textarea>
+          <textarea {...register("descripcion", { required: "La descripción es obligatoria" })}></textarea>
+          {errors.descripcion && <p className="error">{errors.descripcion.message}</p>}
         </div>
+
+        {/* Campo para la imagen */}
         <div className="form-group">
           <label>Imagen:</label>
-          <input type="file" name="imagen" onChange={handleImageChange} required />
+          <input type="file" onChange={handleImageChange} required />
         </div>
+
+        {/* Campo para el estado reservado */}
         <div className="form-group">
           <label>Reservado:</label>
-          <input type="checkbox" name="reservado" checked={formData.reservado} onChange={handleChange} />
+          <input type="checkbox" {...register("reservado")} />
         </div>
+
+        {/* Botón para enviar el formulario */}
         <button type="submit" className="submit-button">Agregar</button>
       </form>
     </div>
