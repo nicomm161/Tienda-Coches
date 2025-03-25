@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { CocheContext } from './CocheContexto';
 import './Formulario.css';
 
-// Componente para agregar un nuevo coche
+
 const Formulario = () => {
-  // Obtenemos la función del contexto para agregar coches
+ 
   const { agregarCoche } = useContext(CocheContext);
 
   // Hook para manejar el formulario y sus validaciones
@@ -16,11 +16,11 @@ const Formulario = () => {
 
   // Función para manejar el cambio de imagen
   const handleImageChange = (e) => {
-    const archivo = e.target.files[0]; // Obtenemos el archivo seleccionado
+    const archivo = e.target.files[0]; 
     if (archivo) {
-      const imagenCoche = `public/images/${archivo.name}`; // Ruta de la imagen
-      setImagen(imagenCoche); // Guardamos la ruta en el estado
-      setValue("imagen", imagenCoche); // Actualizamos el valor del formulario
+      const imagenCoche = `public/images/${archivo.name}`;
+      setImagen(imagenCoche); 
+      setValue("imagen", imagenCoche); 
     }
   };
 
@@ -29,12 +29,12 @@ const Formulario = () => {
     // Agregamos el coche con los datos del formulario
     agregarCoche({
       ...data,
-      año: parseInt(data.año), // Convertimos el año a número
-      precio: parseFloat(data.precio), // Convertimos el precio a número decimal
-      kilometraje: parseInt(data.kilometraje), // Convertimos el kilometraje a número
+      año: parseInt(data.año), 
+      precio: parseFloat(data.precio), 
+      kilometraje: parseInt(data.kilometraje), 
       caracteristicas: data.caracteristicas.split(',').map((item) => item.trim()), // Convertimos las características en un array
-      reservado: data.reservado || false, // Por defecto, el coche no está reservado
-      imagen // Agregamos la imagen seleccionada
+      reservado: data.reservado || false, 
+      imagen 
     });
 
     reset(); // Reiniciamos el formulario

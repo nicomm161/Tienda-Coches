@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { CocheContext } from './CocheContexto';
 import './ItemCard.css';
 
-// Componente que representa una tarjeta de información de un coche
+
 export const ItemCard = ({ coche }) => {
-  // Obtenemos las funciones del contexto para eliminar y editar coches
+
   const { eliminarCoche, editarCoche } = useContext(CocheContext);
 
   // Estado para controlar si se muestra más información del coche
@@ -28,9 +28,7 @@ export const ItemCard = ({ coche }) => {
 
   // Función que se ejecuta al enviar el formulario de edición
   const onSubmit = (data) => {
-    // Actualizamos el coche con los nuevos datos
     editarCoche({ ...coche, ...data });
-    // Salimos del modo edición
     setEditando(false);
   };
 
